@@ -1,3 +1,28 @@
 body {
     position: relative;
 }
+
+
+.car-item h5 {
+    text-transform: uppercase;
+    font-size: 30px;
+    margin-bottom: 1px;
+}
+
+.car-item {
+    border: 1px solid black;
+    margin-top: 50px;
+}
+
+/*.car-item {
+    margin-top: 50px;
+}*/
+
+.car-item .car-price {
+    font-size: 15px;
+    /*font-weight: normal;*/
+}
+
+.car-container {
+    margin-bottom: 125px;
+}

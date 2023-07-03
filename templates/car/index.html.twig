@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes voitures{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-3">
+            <h3>Filtrer</h3>
+            Colonne de filtre
+        </div>
+       
+        <div class="col-md-9">
+
+            <h3>Coucou pour le test</h3>
+
+            <div class="row car-container">
+                {% for car in cars %}
+                    <div class="col-md-4">
+                        <div class="car-item text-center">
+                            <h5>{{ car.name }}</h5>
+                            <span class="car-price">{{ (car.price/100) |number_format(2, ',', '.') }} €</span>
+                        </div>
+                    </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{# Mettre un système de card pour afficher les voitures #}
+    
+    
+{% endblock %}
