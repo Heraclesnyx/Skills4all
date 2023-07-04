@@ -6,13 +6,12 @@
 
     <div class="row">
         <div class="col-md-3">
-            <h3>Filtrer</h3>
-            Colonne de filtre
+            <h3>Filtre</h3>
+            {{form(form)}}
         </div>
        
         <div class="col-md-9">
-
-            <h3>Coucou pour le test</h3>
+            <h3>Mes voitures à vendre</h3>
 
             <div class="row car-container">
                 {% for car in cars %}
@@ -22,7 +21,7 @@
                             <span class="car-price">{{ (car.price/100) |number_format(2, ',', '.') }} €</span>
                         </div>
                     </div>
-            {% endfor %}
+                {% endfor %}
             </div>
         </div>
     </div>

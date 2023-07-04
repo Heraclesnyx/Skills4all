@@ -14,9 +14,9 @@ body {
     margin-top: 50px;
 }
 
-/*.car-item {
+.car-item {
     margin-top: 50px;
-}*/
+}
 
 .car-item .car-price {
     font-size: 15px;
@@ -26,3 +26,11 @@ body {
 .car-container {
     margin-bottom: 125px;
 }
+
+form {
+    margin-top: 35px;
+}
+
+/*label{
+    vertical-align: middle;
+}*/

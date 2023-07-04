@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Classe\Search;
 use App\Entity\Cars;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -20,6 +21,35 @@ class CarsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Cars::class);
     }
+
+    /**
+     * Requête me permettant de récupérer mes voitures en fontion de la barre de recherche
+     * @return Cars[]
+     */
+    public function findWithSearch(Search $search)
+    {
+        $query = $this
+            ->createQueryBuilder('v')
+            ->select('c','v')
+            ->join('v.category', 'c');
+    
+    
+        if(!empty($search->categories)){
+            $query = $query
+                ->andWhere('c.id IN (:categories)')
+                ->setParameter('categories', $search->categories);
+        }
+    
+        //Cas de la barre de recherche demander par un user
+        if(!empty($search->string)){
+            $query = $query
+                ->andWhere('v.name LIKE :string')
+                ->setParameter('string', "%{$search->string}%");
+        }
+    
+        return $query->getQuery()->getResult();
+    }
+
 
     public function save(Cars $entity, bool $flush = false): void
     {
@@ -63,4 +93,6 @@ class CarsRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
 }
