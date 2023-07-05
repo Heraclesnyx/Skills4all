@@ -28,26 +28,17 @@ class CarController extends AbstractController
         
         $search = new Search();
         $form = $this->createForm(SearchType::class, $search);
-
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
-            $car = $this->entityManager->getRepository(Car::class)->findWithSearch($search);
-        }else{
-            $car = $this->entityManager->getRepository(Car::class)->findAll();
-        }
-
-        
-
         $pagination = $paginator->paginate(
-            $carRepository->paginationQuery(),
+            $form->isSubmitted() && $form->isValid() ? $carRepository->findWithSearch($search) : $carRepository->paginationQuery(),
             $request->query->get('page', 1),
             20
         );
 
+
         return $this->render('car/index.html.twig', [
-            'car' => $car,
+            //'cars' => $car,
             'form' => $form->createView(),
             'pagination' => $pagination
         ]);

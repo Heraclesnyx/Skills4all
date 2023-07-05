@@ -53,7 +53,9 @@ class CarRepository extends ServiceEntityRepository
     
     public function paginationQuery()
     {
-        return $this->createQueryBuilder('c')
+        return $this->createQueryBuilder('v')
+            ->select('c','v')
+            ->join('v.category','c')
             ->orderBy('c.id', 'ASC')
             ->getQuery()
         ;
