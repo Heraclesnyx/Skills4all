@@ -27,7 +27,6 @@ class CarController extends AbstractController
 
         // parameters to template
         return $this->render('car/index.html.twig', [
-            //'cars' => $car,
             'form' => $form->createView(),
             'pagination' => $pagination
         ]);
