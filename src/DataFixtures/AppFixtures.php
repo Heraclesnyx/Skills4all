@@ -2,8 +2,8 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Cars;
-use Faker;
+use App\Entity\Car;
+use Faker\Factory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -11,25 +11,17 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        // $product = new Product();
-        // $manager->persist($product);
+        $faker = Factory::create('fr_FR');
 
-        $faker = Faker\Factory::create();
-        //$cars = array();
-
-        //create 20 voitures
-        // for ($i=0; $i < 25 ; $i++) { 
-        //     $cars[$i] = new Cars();
-        //     $cars[$i]->setName($faker->name);
-        //     $cars[$i]->setPrice($faker->mt_rand(10, 100));
-        //     $manager->persist($cars[$i]);
-        // }
-
-        $cars = new Cars();
-        $cars->setName('cars ');
-        $cars->setPrice(mt_rand(10, 100));
+        //create 100 voitures
+        for ($i=0; $i < 100 ; $i++) { 
+            $car = new Car();
+            $car->setName($faker->name);
+            $car->setPrice($faker->mt_rand(10, 12));
+            $manager->persist($car);
+        }
         
-        $manager->persist($cars);
+        //$manager->persist($car);
         $manager->flush();
     }
 }
