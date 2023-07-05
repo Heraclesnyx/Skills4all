@@ -2,18 +2,20 @@
 
 namespace App\Form;
 
-use App\Classe\Search;
-use App\Entity\Category;
+
+use App\Repository\CategoryRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
 class SearchType extends AbstractType
 {
+    public function __construct(private CategoryRepository $categoryRepository)
+    {
+    }
+
     /**
     * Builder
     *
@@ -25,29 +27,23 @@ class SearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('string',TextType::class, [
+            ->add('name',options: [
                 'label' => false,
                 'required' => false,
                 'attr'=> [
                     'placeholder'=>"Votre recherche...",
-                    'class' => 'form-control-sm'
                 ]
             ])
-            ->add('categories', EntityType::class, [
+            ->add('categories', ChoiceType::class, [
+                'choices' => $this->categoryRepository->findAll(),
+                'choice_value' => 'id',
+                'choice_label' => 'name',
                 'label' => false,
                 'required' => false,
-                'class' => Category::class,
                 'multiple' => true,
                 'expanded' => true
 
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'Filtrer',
-                'attr' => [
-                    'class' => 'btn btn-info w-100'
-                ]
-            ])
-            ;
+            ]);
     }
         
     
@@ -61,16 +57,8 @@ class SearchType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Search::class,
             'method' => 'GET',
-            'crsf_protection' => false,
+            'crsf_protection' => false
         ]);
     }//Fin de configureOptions()
-
-
-    /** On return rien pour clean l'url */
-    public function getBlockPrefix()
-    {
-        return '';
-    }
 }

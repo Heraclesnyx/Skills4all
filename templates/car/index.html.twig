@@ -3,45 +3,58 @@
 {% block title %}Mes voitures{% endblock %}
 
 {% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h3>Filtre</h3>
+                <div class="accordion mb-3" id="accordionExample">
+                    <div class="accordion-item">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Filtres
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    {{ form_start(form) }}
+                                    <div class="form-group mb-3">
+                                        {{ form_label(form.name) }}
+                                        {{ form_widget(form.name) }}
+                                    </div>
 
-    <div class="row">
-        <div class="col-md-3">
-            <h3>Filtre</h3>
-            
-              {#  {{form(form)}} #}
-              {#  {{ dump(form) }} #}
-                {{ form_start(form) }}
-                    {{ form_label(form.string) }}
-                    {{ form_widget(form.string) }}
+                                    <div class="form-group mb-3">
+                                        {{ form_label(form.categories) }}
+                                        {{ form_widget(form.categories) }}
+                                    </div>
 
-                    {{ form_label(form.categories) }}
-                    {{ form_widget(form.categories) }}
-                {{ form_end(form) }}
-            
-            
-        </div>
-       
-        <div class="col-md-9">
-            <h3>Mes voitures à vendre</h3>
-
-            <div class="row car-container">
-                {% for car in pagination %}
-                    <div class="col-md-4">
-                        <div class="car-item text-center">
-                            <h5>{{ car.name }}</h5>
-                            <span class="car-price">{{ (car.price/100) |number_format(2, ',', '.') }} €</span>
+                                    <button type="submit" class="btn btn-primary">Filtrer</button>
+                                    {{ form_end(form) }}
+                                </div>
+                            </div>
                         </div>
                     </div>
-                {% endfor %}
+                </div>
+            </div>
 
-                
-					{{ knp_pagination_render(pagination) }}
-				
+            <div class="col-12">
+                <h3>Mes voitures à vendre</h3>
+
+                <div class="row car-container">
+                    {% for car in pagination %}
+                        <div class="col-md-4">
+                            <div class="car-item text-center">
+                                <h5>{{ car.name }}</h5>
+                                <span class="car-price">{{ (car.price/100) |number_format(2, ',', '.') }} €</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    <div class="navigation">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-{# Mettre un système de card pour afficher les voitures #}
-    
-    
 {% endblock %}

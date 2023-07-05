@@ -21,7 +21,6 @@ class AppFixtures extends Fixture
             $manager->persist($car);
         }
         
-        //$manager->persist($car);
         $manager->flush();
     }
 }

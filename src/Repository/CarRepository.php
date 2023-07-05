@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\Classe\Search;
 use App\Entity\Car;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -23,72 +22,40 @@ class CarRepository extends ServiceEntityRepository
     }
 
     /**
-     * Requête me permettant de récupérer mes voitures en fontion de la barre de recherche
-     * @return Car[]
+     * @param array $filters
+     * @return \Doctrine\ORM\Query
      */
-    public function findWithSearch(Search $search)
+    public function findWithSearch(array $filters)
     {
-        $query = $this
-            ->createQueryBuilder('v')
+        $query = $this->createQueryBuilder('v')
             ->select('c','v')
             ->join('v.category', 'c');
     
     
-        if(!empty($search->categories)){
+        if(!empty($filters['categories'])){
             $query = $query
                 ->andWhere('c.id IN (:categories)')
-                ->setParameter('categories', $search->categories);
+                ->setParameter('categories', $filters['categories']);
         }
     
         //Cas de la barre de recherche demander par un user
-        if(!empty($search->string)){
+        if(!empty($filters['name'])){
             $query = $query
                 ->andWhere('v.name LIKE :string')
-                ->setParameter('string', "%{$search->string}%");
+                ->setParameter('string', $filters['name'] . '%');
         }
     
-        return $query->getQuery()->getResult();
+        return $query->getQuery();
     }
 
     
     public function paginationQuery()
     {
-        return $this->createQueryBuilder('v')
+        $query = $this->createQueryBuilder('v')
             ->select('c','v')
-            ->join('v.category','c')
-            ->orderBy('c.id', 'ASC')
-            ->getQuery()
+            ->join('v.category','c');
+            
+            return $query->getQuery();
         ;
     }
-
-
-    /*public function save(Car $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function remove(Car $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }*/
-
-
-
-//    public function findOneBySomeField($value): ?Cars
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }
