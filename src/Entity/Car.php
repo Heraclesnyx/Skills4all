@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\CarsRepository;
+use App\Repository\CarRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CarsRepository::class)]
-class Cars
+#[ORM\Entity(repositoryClass: CarRepository::class)]
+class Car
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -19,7 +19,7 @@ class Cars
     #[ORM\Column]
     private ?float $price = null;
 
-    #[ORM\ManyToOne(inversedBy: 'cars')]
+    #[ORM\ManyToOne(inversedBy: 'car')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 

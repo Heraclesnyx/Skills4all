@@ -18,12 +18,12 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Cars::class)]
-    private Collection $cars;
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Car::class)]
+    private Collection $car;
 
     public function __construct()
     {
-        $this->cars = new ArrayCollection();
+        $this->car = new ArrayCollection();
     }
 
     public function __toString()
@@ -49,26 +49,26 @@ class Category
     }
 
     /**
-     * @return Collection<int, Cars>
+     * @return Collection<int, Car>
      */
-    public function getCars(): Collection
+    public function getCar(): Collection
     {
-        return $this->cars;
+        return $this->car;
     }
 
-    public function addCar(Cars $car): static
+    public function addCar(Car $car): static
     {
-        if (!$this->cars->contains($car)) {
-            $this->cars->add($car);
+        if (!$this->car->contains($car)) {
+            $this->car->add($car);
             $car->setCategory($this);
         }
 
         return $this;
     }
 
-    public function removeCar(Cars $car): static
+    public function removeCar(Car $car): static
     {
-        if ($this->cars->removeElement($car)) {
+        if ($this->car->removeElement($car)) {
             // set the owning side to null (unless already changed)
             if ($car->getCategory() === $this) {
                 $car->setCategory(null);

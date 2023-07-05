@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Classe\Search;
-use App\Entity\Cars;
+use App\Entity\Car;
 use App\Form\SearchType;
-use App\Repository\CarsRepository;
+use App\Repository\CarRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,7 +23,7 @@ class CarController extends AbstractController
 
 
     #[Route('/', name: 'voitures')]
-    public function index(Request $request,PaginatorInterface $paginator, CarsRepository $carsRepository): Response
+    public function index(Request $request,PaginatorInterface $paginator, CarRepository $carRepository): Response
     {
         
         $search = new Search();
@@ -33,37 +33,24 @@ class CarController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
-            $cars = $this->entityManager->getRepository(Cars::class)->findWithSearch($search);
+            $car = $this->entityManager->getRepository(Car::class)->findWithSearch($search);
         }else{
-            $cars = $this->entityManager->getRepository(Cars::class)->findAll();
+            $car = $this->entityManager->getRepository(Car::class)->findAll();
         }
 
         
 
         $pagination = $paginator->paginate(
-            $carsRepository->paginationQuery(),
+            $carRepository->paginationQuery(),
             $request->query->get('page', 1),
             20
         );
 
         return $this->render('car/index.html.twig', [
-            'cars' => $cars,
+            'car' => $car,
             'form' => $form->createView(),
             'pagination' => $pagination
         ]);
     }
 
-    /*#[Route('/', name: 'pagination')]
-    public function pagination(Request $request, PaginatorInterface $paginator, CarsRepository $carsRepository): Response
-    {
-        $pagination = $paginator->paginate(
-            $carsRepository->paginationQuery(),
-            $request->query->get('page', 1),
-            20
-        );
-
-        return $this->render('car/index.html.twig', [
-            'pagination' => $pagination
-        ]);
-    }*/
 }

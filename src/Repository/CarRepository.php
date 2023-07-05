@@ -3,28 +3,28 @@
 namespace App\Repository;
 
 use App\Classe\Search;
-use App\Entity\Cars;
+use App\Entity\Car;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Cars>
+ * @extends ServiceEntityRepository<Car>
  *
- * @method Cars|null find($id, $lockMode = null, $lockVersion = null)
- * @method Cars|null findOneBy(array $criteria, array $orderBy = null)
- * @method Cars[]    findAll()
- * @method Cars[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Car|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Car|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Car[]    findAll()
+ * @method Car[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CarsRepository extends ServiceEntityRepository
+class CarRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Cars::class);
+        parent::__construct($registry, Car::class);
     }
 
     /**
      * Requête me permettant de récupérer mes voitures en fontion de la barre de recherche
-     * @return Cars[]
+     * @return Car[]
      */
     public function findWithSearch(Search $search)
     {
@@ -50,8 +50,17 @@ class CarsRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
+    
+    public function paginationQuery()
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+        ;
+    }
 
-    public function save(Cars $entity, bool $flush = false): void
+
+    /*public function save(Car $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -60,23 +69,16 @@ class CarsRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Cars $entity, bool $flush = false): void
+    public function remove(Car $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
         if ($flush) {
             $this->getEntityManager()->flush();
         }
-    }
+    }*/
 
-  
-    public function paginationQuery()
-    {
-        return $this->createQueryBuilder('c')
-            ->orderBy('c.id', 'ASC')
-            ->getQuery()
-        ;
-    }
+
 
 //    public function findOneBySomeField($value): ?Cars
 //    {
@@ -87,6 +89,4 @@ class CarsRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-
-
 }
