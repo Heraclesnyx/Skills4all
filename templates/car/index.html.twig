@@ -9,14 +9,13 @@
         <div class='container'>
                 <div class="card col-12" style="text-align:center">
                     <div class="card-header">
-                        <p>Témpérature à Paris</p>
+                        <p>Température à Paris</p>
                     </div>
 
                     <div class="card-body">
                         <blockquote class="blockquote mb-0">
-                            {% set key = 'now'|date('H')|number_format %} 
                             <div>
-                                {{ data.hourly.temperature_2m[key + 2]}}
+                                {{ data.hourly.temperature_2m['now'|date('H')|number_format]}}°C
                             </div>
                     </div>
                 </div>
