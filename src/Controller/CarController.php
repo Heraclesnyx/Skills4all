@@ -15,7 +15,7 @@ class CarController extends AbstractController
 {
 
     #[Route('/', name: 'voitures')]
-    public function index(Request $request,PaginatorInterface $paginator, CarRepository $repository): Response
+    public function index(Request $request,PaginatorInterface $paginator, CarRepository $repository,CallApiService $callApiService): Response
     {
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
@@ -29,7 +29,8 @@ class CarController extends AbstractController
         // parameters to template
         return $this->render('car/index.html.twig', [
             'form' => $form->createView(),
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'data' => $callApiService->getApi()
         ]);
     }
 }

@@ -12,11 +12,13 @@ class CallApiService
         $this->client = $client;
     }
 
-    public function getFranceData(): array
+   
+
+    public function getApi(): array
     {
         $response = $this->client->request(
             'GET',
-            'https://api.open-meteo.com/v1/meteofrance?latitude=48.8534&longitude=2.3488&hourly=temperature_2m'
+            'https://api.open-meteo.com/v1/forecast?latitude=48.8534&longitude=2.3488&hourly=temperature_2m&timezone=Europe%2FBerlin&forecast_days=1'
         );
 
         return $response->toArray();

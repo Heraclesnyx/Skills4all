@@ -17,7 +17,7 @@ class AppFixtures extends Fixture
         for ($i=0; $i < 100 ; $i++) { 
             $car = new Car();
             $car->setName($faker->name);
-            $car->setPrice($faker->mt_rand(10, 12));
+            $car->setPrice($faker->mt_rand(10, 11));
             $manager->persist($car);
         }
         

@@ -7,38 +7,4 @@
     <p>Ceci est une préparation pour l'affichage de notre recherche </p>
   </div>
 
-  <div class='container'>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-
-				<div class="col">
-					<div class="card shadow-sm h-100">
-						<div class="card-body">
-							<h5 class="card-title">Météo</h5>
-							<p class="card-text">Témpérature</p>
-						</div>
-            <h3 class="card-footer bg-warning text-dark mx-2 rounded-pill">{{ data.hourly.temperature_2m[5] }}</h3>
-					</div>
-				</div>
-
-        <div class="col">
-					<div class="card shadow-sm">
-						<div class="card-body">
-							<h5 class="card-title">Latitude</h5>
-							<p class="card-text">Latitude de notre ville</p>
-						</div>
-              <h3 class="card-footer bg-warning text-dark mx-2 rounded-pill">{{ data.latitude }}</h3>
-					</div>
-				</div>
-
-        <div class="col">
-					<div class="card shadow-sm">
-						<div class="card-body">
-							<h5 class="card-title">Longitude</h5>
-							<p class="card-text">Longitude de notre ville</p>
-						</div>
-              <h3 class="card-footer bg-warning text-dark mx-2 rounded-pill">{{ data.longitude }}</h3>
-					</div>
-				</div>
-        
-  </div>
 {% endblock %}
