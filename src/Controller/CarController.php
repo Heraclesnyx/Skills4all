@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\SearchType;
 use App\Repository\CarRepository;
+use App\Service\CallApiService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +30,14 @@ class CarController extends AbstractController
         return $this->render('car/index.html.twig', [
             'form' => $form->createView(),
             'pagination' => $pagination
+        ]);
+    }
+
+   
+    public function weatherly(CallApiService $callApiService): Response
+    {
+        return $this->render('weatherly/weatherly.html.twig', [
+            'data' => $callApiService->getWeatherly(),
         ]);
     }
 
