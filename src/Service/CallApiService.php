@@ -12,8 +12,7 @@ class CallApiService
         $this->client = $client;
     }
 
-
-    public function getWeatherly(): array
+    public function getFranceData(): array
     {
         $response = $this->client->request(
             'GET',

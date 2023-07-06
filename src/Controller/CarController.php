@@ -32,13 +32,4 @@ class CarController extends AbstractController
             'pagination' => $pagination
         ]);
     }
-
-   
-    public function weatherly(CallApiService $callApiService): Response
-    {
-        return $this->render('weatherly/weatherly.html.twig', [
-            'data' => $callApiService->getWeatherly(),
-        ]);
-    }
-
 }
