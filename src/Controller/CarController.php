@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Form\SearchType;
@@ -13,9 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CarController extends AbstractController
 {
-
     #[Route('/', name: 'voitures')]
-    public function index(Request $request,PaginatorInterface $paginator, CarRepository $repository,CallApiService $callApiService): Response
+    public function index(Request $request, PaginatorInterface $paginator, CarRepository $repository, CallApiService $callApiService): Response
     {
         $form = $this->createForm(SearchType::class);
         $form->handleRequest($request);
@@ -30,7 +31,7 @@ class CarController extends AbstractController
         return $this->render('car/index.html.twig', [
             'form' => $form->createView(),
             'pagination' => $pagination,
-            'data' => $callApiService->getApi()
+            'data' => $callApiService->getApi(),
         ]);
     }
 }

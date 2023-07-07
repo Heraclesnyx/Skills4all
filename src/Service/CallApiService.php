@@ -1,6 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Service;
+
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class CallApiService
@@ -11,8 +14,6 @@ class CallApiService
     {
         $this->client = $client;
     }
-
-   
 
     public function getApi(): array
     {

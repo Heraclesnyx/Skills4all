@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Form;
+declare(strict_types=1);
 
+namespace App\Form;
 
 use App\Repository\CategoryRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 
 class SearchType extends AbstractType
 {
@@ -17,22 +17,22 @@ class SearchType extends AbstractType
     }
 
     /**
-    * Builder
-    *
-    * @param FormBuilderInterface $builder Builder.
-    * @param array                $options Array options.
-    *
-    * @return void
-    */
+     * Builder
+     *
+     * @param FormBuilderInterface $builder builder
+     * @param array                $options array options
+     *
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',options: [
+            ->add('name', options: [
                 'label' => false,
                 'required' => false,
-                'attr'=> [
-                    'placeholder'=>"Votre recherche...",
-                ]
+                'attr' => [
+                    'placeholder' => 'Votre recherche...',
+                ],
             ])
             ->add('categories', ChoiceType::class, [
                 'choices' => $this->categoryRepository->findAll(),
@@ -41,16 +41,15 @@ class SearchType extends AbstractType
                 'label' => false,
                 'required' => false,
                 'multiple' => true,
-                'expanded' => true
-
-            ]);
+                'expanded' => true,
+            ])
+        ;
     }
-        
-    
+
     /**
      * Configuration
      *
-     * @param OptionsResolver $resolver Resolver.
+     * @param OptionsResolver $resolver resolver
      *
      * @return void
      */
@@ -58,7 +57,7 @@ class SearchType extends AbstractType
     {
         $resolver->setDefaults([
             'method' => 'GET',
-            'crsf_protection' => false
+            'crsf_protection' => false,
         ]);
-    }//Fin de configureOptions()
+    }// Fin de configureOptions()
 }

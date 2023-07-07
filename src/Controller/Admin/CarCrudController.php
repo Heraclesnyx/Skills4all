@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Entity\Car;
@@ -15,14 +17,12 @@ class CarCrudController extends AbstractCrudController
         return Car::class;
     }
 
-    
     public function configureFields(string $pageName): iterable
     {
-       return [
-        TextField::new('name'),
-        MoneyField::new('price')->setCurrency('EUR'),
-        AssociationField::new('category')
-       ];
+        return [
+         TextField::new('name'),
+         MoneyField::new('price')->setCurrency('EUR'),
+         AssociationField::new('category'),
+        ];
     }
-    
 }
