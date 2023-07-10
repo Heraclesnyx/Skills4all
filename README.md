@@ -21,7 +21,9 @@ Toutes les heures, la température doit changer sur la page.
 ## Informations complémentaires pour le projet
 liste de command line pour le projet:
   - symfony server:start  => pour lancer le projet sur son port
+  - php bin/console doctrine:database:create + php bin/console doctrine:migrations:migrate => pour la création des tables
   - php bin/console doctrine:fixtures:load => pour générer de fausses données dans la bdd
   - composer install dans tools/php-cs-fixer => sert à suivre les normes de Php (ici version 8)
+  - /admin => pour accèder à l'url de la page admin
 
 
